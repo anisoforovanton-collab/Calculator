@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Calculator</title>
+<style>
+  :root {
+    --anchor: #051F20;
+    --surface: #8EB698;
+    --light: #DAF1DE;
+    --mid1: #0B2B26;
+    --mid2: #163832;
+    --mid3: #235347;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--anchor); color: var(--mid3); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+  nav { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 24px; z-index: 100; }
+  a { color: var(--mid3); text-decoration: none; font-size: 0.95rem; transition: .2s; }
+  a:hover { color: var(--light); }
+  a.active { color: var(--light); }
+
+  .hero { padding: 140px 40px 80px; max-width: 1200px; margin: 0 auto; display: flex; gap: 48px; align-items: start; }
+  .hero-left { flex: 1; }
+  .hero-left h1 { color: var(--light); font-size: 3.2rem; margin-bottom: 12px; text-align: left; }
+  .hero-left p { color: var(--mid3); font-size: 1.15rem; line-height: 1.6; text-align: left; margin-bottom: 24px; }
+  .hero-left small { color: var(--mid2); font-size: 0.9rem; text-align: left; margin-top: 8px; }
+
+  .hero-right { display: flex; flex-direction: column; gap: 12px; }
+  .btn { padding: 14px 28px; border: none; border-radius: 10px; background: var(--surface); color: var(--light); font-weight: 600; cursor: pointer; transition: .2s; }
+  .btn:hover { background: var(--mid2); color: var(--light); }
+
+  section { padding: 100px 40px; }
+  h2 { text-align: center; font-size: 2.4rem; color: var(--light); margin-bottom: 40px; }
+
+  .case { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+  .case-text { max-width: 600px; }
+  .step { display: flex; gap: 12px; margin-bottom: 20px; }
+  .step-label { font-weight: 700; color: var(--mid3); width: 90px; }
+  .step-content { color: var(--mid3); line-height: 1.6; }
+  .metrics { display: flex; gap: 24px; margin-top: 24px; font-size: 0.95rem; color: var(--mid2); }
+  .metric { background: var(--surface); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--mid2); }
+
+  .demo-wrap { margin-top: 32px; }
+  .calc {
+    background: var(--mid1); border: 1px solid var(--mid2); border-radius: 14px; padding: 20px; max-width: 360px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .display {
+    background: var(--anchor); border-radius: 10px; padding: 14px; text-align: right; font-size: 2.4rem; color: var(--light);
+    min-height: 64px; line-height: 1; font-family: monospace; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  .key {
+    background: var(--mid1); border: 1px solid var(--mid2); border-radius: 12px; padding: 14px 8px;
+    text-align: center; font-size: 1.15rem; cursor: pointer; touch-action: manipulation;
+  }
+  .key:hover { border-color: var(--mid3); }
+  .key:active { background: var(--mid3); color: var(--light); }
+  .key:focus-visible { outline: 3px solid var(--light); outline-offset: 3px; }
+  .key.op { color: var(--mid3); }
+  .key.op:hover { border-color: var(--mid3); }
+  .key.op:active { background: var(--mid3); color: var(--light); }
+
+  footer { text-align: center; padding: 40px 40px; color: var(--mid2); font-size: 0.85rem; }
+
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; }
+    .hero-right { text-align: center; }
+    .case { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+    nav { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="active">Home</a>
+  <a href="#calc">Calculator</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <h1>Антон Анисифоров</h1>
+    <p>Frontend-разработчик. Собираю рабочие интерфейсы: чистый код, локальное состояние, отсутствие лишних зависимостей.</p>
+    <small>Один файл, без сборщиков, зелёная контрастная система. Без декора ради декора.</small>
+  </div>
+  <div class="hero-right">
+    <a href="#calc" class="btn">Открыть калькулятор →</a>
+    <a href="https://github.com/ваш-ник/portfolio" class="btn">Sait Portfolio →</a>
+  </div>
+</section>
+
+<section id="calc">
+  <h2>Calculator</h2>
+  <div class="case">
+    <div class="case-text">
+      <div class="step"><span class="step-label">Problem.</span> Тёмные элементы сливаются, арифметика ломается, сброс не работает.</div>
+      <div class="step"><span class="step-label">My role.</span> Полный цикл: семантический HTML, CSS-токены, чистый JS. Без фреймворков.</div>
+      <div class="step"><span class="step-label">Solution.</span> Фон ≠ поверхность. Сетка 4×4. Поле очищается при выборе операции.</div>
+      <div class="step"><span class="step-label">Outcome.</span> Рабочее приложение в одном файле. Ссылка на репозиторий.</div>
+      <div class="metrics">
+        <span class="metric">1 файл</span>
+        <span class="metric">Без внешних библиотек</span>
+        <span class="metric">Фон ≠ поверхность</span>
+      </div>
+    </div>
+
+    <div class="demo-wrap">
+      <div class="calc">
+        <div class="display" id="disp">0</div>
+        <div class="grid">
+          <button class="key op" onclick="setOp('*')">×</button>
+          <button class="key" onclick="add('7')">7</button>
+          <button class="key" onclick="add('8')">8</button>
+          <button class="key" onclick="add('9')">9</button>
+          <button class="key op" onclick="setOp('/')">/</button>
+          <button class="key" onclick="add('4')">4</button>
+          <button class="key" onclick="add('5')">5</button>
+          <button class="key" onclick="add('6')">6</button>
+          <button class="key op" onclick="setOp('+')">+</button>
+          <button class="key" onclick="add('1')">1</button>
+          <button class="key" onclick="add('2')">2</button>
+          <button class="key" onclick="add('3')">3</button>
+          <button class="key op" onclick="setOp('-')">−</button>
+          <button class="key" onclick="add('0')">0</button>
+          <button class="key" onclick="add('.')">.</button>
+          <button class="key op" onclick="calc()">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <div style="text-align:center; padding:40px; max-width:600px; margin:0 auto;">
+    <p style="color:var(--mid3); margin-bottom:12px;">ТГ:@AntonANI2</p>
+    <p style="color:var(--mid2); font-size:0.95rem;">ТГ . Если нужно собрать простой интерфейс — напишите.</p>
+  </div>
+</section>
+
+<footer>© 2026. Portfolio — Calculator.</footer>
+
+<script>
+  const disp = document.getElementById('disp');
+
+  let firstValue = '0';
+  let current = '0';
+  let pendingOp = null;
+  let afterPoint = false;
+
+  function update() {
+    if (disp) disp.textContent = current;
+  }
+
+  function add(ch) {
+    if (current === '0' && ch !== '.') {
+      current = ch;
+    } else {
+      if (ch === '.') {
+        if (!afterPoint) { current += '.'; afterPoint = true; }
+      } else {
+        current += ch;
+        afterPoint = false;
+      }
+    }
+    update();
+  }
+
+  function setOp(op) {
+    if (pendingOp) {
+      const a = parseFloat(firstValue);
+      const b = parseFloat(current);
+      let r = 0;
+      if (pendingOp === '+') r = a + b;
+      else if (pendingOp === '-') r = a - b;
+      else if (pendingOp === '*') r = a * b;
+      else if (pendingOp === '/') r = (b === 0 ? 0 : a / b);
+      firstValue = String(r);
+      current = '0';
+      afterPoint = false;
+      update();
+    }
+    firstValue = current;
+    pendingOp = op;
+    current = '0';
+    afterPoint = false;
+    update();
+  }
+
+  function calc() {
+    if (!pendingOp) return;
+    const a = parseFloat(firstValue);
+    const b = parseFloat(current);
+    let r = 0;
+    if (pendingOp === '+') r = a + b;
+    else if (pendingOp === '-') r = a - b;
+    else if (pendingOp === '*') r = a * b;
+    else if (pendingOp === '/') r = (b === 0 ? 0 : a / b);
+    current = String(r);
+    afterPoint = false;
+    pendingOp = null;
+    update();
+  }
+
+  function clear() {
+    firstValue = '0';
+    current = '0';
+    pendingOp = null;
+    afterPoint = false;
+    if (disp) disp.textContent = '0';
+  }
+</script>
+</body>
+</html>
+
+
